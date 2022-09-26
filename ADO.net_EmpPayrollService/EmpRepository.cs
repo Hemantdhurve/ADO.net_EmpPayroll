@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -173,6 +174,41 @@ namespace ADO.net_EmpPayrollService
             }
 
         }
+
+        //UC3 Updating Salary of Terisa 
+        public void UpdateData(EmpModel model)
+        {
+
+            try
+            {
+                using (con)
+                {
+
+                    SqlCommand cmd = new SqlCommand("dbo.Sp_UpdateSalary", con);             //Created Stored Procedure in SQl of Update
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BasicPay", model.BasicPay);
+                    cmd.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
+
+
+                    //opening connection
+                    con.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+
+                        Console.WriteLine("Updated");    
+
+                    }
+                   
+                    Console.WriteLine("Details Updated Successfully");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something Went Wrong" + e.Message);
+            }
+        }
+
     }
 }
 
