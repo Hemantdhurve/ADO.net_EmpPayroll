@@ -86,7 +86,7 @@ namespace ADO.net_EmpPayrollService
                 using (con)
                 {
                     //string query = @"Select EmployeeID,EmployeeName,PhoneNumber,Address,Department,Gender,BasicPay,Deductions,TaxablePay,Tax,Income_Tax,NetPay,StartDate,City,Country from EmpPayroll_Service";
-                    string query = @"Select * from dbo.EmployeePayroll";
+                    string query = @"Select * from EmployeePayroll";
                     SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
 
@@ -143,7 +143,7 @@ namespace ADO.net_EmpPayrollService
             {
                 using (con)
                 {
-                    SqlCommand cmd = new SqlCommand("dbo.Sp_AddEmpDetails", con);             //Created Stored Procedure in SQl
+                    SqlCommand cmd = new SqlCommand("Sp_AddEmpDetails", con);             //Created Stored Procedure in SQl
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
                     cmd.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
@@ -184,7 +184,7 @@ namespace ADO.net_EmpPayrollService
                 using (con)
                 {
 
-                    SqlCommand cmd = new SqlCommand("dbo.Sp_UpdateSalary", con);             //Created Stored Procedure in SQl of Update
+                    SqlCommand cmd = new SqlCommand("Sp_UpdateSalary", con);             //Created Stored Procedure in SQl of Update
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BasicPay", model.BasicPay);
                     cmd.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
@@ -196,10 +196,10 @@ namespace ADO.net_EmpPayrollService
                     if (result != 0)
                     {
 
-                        Console.WriteLine("Updated");    
-
+                        Console.WriteLine("Updated");
+                        //return true;
                     }
-                   
+                    //return false;
                     Console.WriteLine("Details Updated Successfully");
                 }
             }
@@ -209,6 +209,35 @@ namespace ADO.net_EmpPayrollService
             }
         }
 
+        //UC4 Refactor getting output of employee whose salary updated
+
+        public void GetUpdatedResultofEmployee(EmpModel model)
+        {
+            try
+            {
+                using (con)
+                {
+                    string query = @"Select BasicPay From EmployeePayroll Where EmployeeName='Terisa'";
+                    SqlCommand cmd=new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
+                    con.Open();
+
+                    var result=cmd.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+
+                        Console.WriteLine("Updated");
+                        //return true;
+                    }
+                    //return false;
+                    Console.WriteLine("Details Getting Successfully");
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something Went Wrong" + e.Message);
+            }
+        }
     }
 }
 

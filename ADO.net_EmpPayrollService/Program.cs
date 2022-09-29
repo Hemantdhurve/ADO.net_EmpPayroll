@@ -13,7 +13,8 @@ namespace ADO.net_EmpPayrollService
                 "2) Creating Table\n " +
                 "3) Retrieving Data from the Database\n " +
                 "4) Adding Employee Method to the database\n " +
-                "5) Updating Salary of Employee\n ");
+                "5) Updating Salary of Employee\n " +
+                "6) Get the Updated Salary of Employee\n ");
 
             int option=Convert.ToInt32(Console.ReadLine());
 
@@ -62,6 +63,11 @@ namespace ADO.net_EmpPayrollService
                     model.EmployeeName = "Terisa";
                     model.BasicPay = 3000000.00;
                     repo.UpdateData(model);
+                    break;
+
+                case 6:
+                    model.EmployeeName = "Terisa";
+                    repo.GetUpdatedResultofEmployee(model);
                     break;
 
 
