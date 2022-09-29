@@ -238,6 +238,38 @@ namespace ADO.net_EmpPayrollService
                 Console.WriteLine("Something Went Wrong" + e.Message);
             }
         }
+
+        //UC5 Retrieve Data of Employee Start Date Range
+
+        public void GetEmpDetailsFromDateRange(EmpModel model)
+        {
+            try
+            {
+                using (con)
+                {
+                    string query = $@"select * from EmployeePayroll where Cast(StartDate as Date) between '2020-10-20' and '2022-09-29'";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                   
+                    con.Open();
+
+                    var result = cmd.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+
+                        Console.WriteLine("Updated");
+                        //return true;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something Went Wrong..." +e.Message);
+            }
+           
+
+        }
+
+       
     }
 }
 

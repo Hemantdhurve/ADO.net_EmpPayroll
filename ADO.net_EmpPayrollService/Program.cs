@@ -14,8 +14,9 @@ namespace ADO.net_EmpPayrollService
                 "3) Retrieving Data from the Database\n " +
                 "4) Adding Employee Method to the database\n " +
                 "5) Updating Salary of Employee\n " +
-                "6) Get the Updated Salary of Employee\n ");
-
+                "6) Get the Updated Salary of Employee\n " +
+                "7) Get the Employee Start Date Range\n ");
+                
             int option=Convert.ToInt32(Console.ReadLine());
 
             EmpModel model = new EmpModel();
@@ -70,7 +71,9 @@ namespace ADO.net_EmpPayrollService
                     repo.GetUpdatedResultofEmployee(model);
                     break;
 
-
+                case 7:
+                    repo.GetEmpDetailsFromDateRange(model);
+                    break;
 
                 default:
                     Console.WriteLine("Please Enter Proper Option");
