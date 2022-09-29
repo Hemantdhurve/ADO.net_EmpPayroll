@@ -227,9 +227,9 @@ namespace ADO.net_EmpPayrollService
                     {
 
                         Console.WriteLine("Updated");
-                        //return true;
+                        
                     }
-                    //return false;
+                    
                     Console.WriteLine("Details Getting Successfully");
                 }
             }
@@ -257,19 +257,57 @@ namespace ADO.net_EmpPayrollService
                     {
 
                         Console.WriteLine("Updated");
-                        //return true;
+                       
                     }
                 }
             }
             catch(Exception e)
             {
                 Console.WriteLine("Something Went Wrong..." +e.Message);
-            }
-           
-
+            }          
         }
 
-       
+        //UC6  Using Functions to get Employee BasicPay Group By Gender
+        public void UseFunctionGroupbyGender()
+        {
+            try
+            {
+                using (con)
+                {
+                    string query = "select Gender,SUM(BasicPay) as TotalSum,AVG(BasicPay) as AvgCount,MAX(BasicPay) as MaxPay,MIN(BasicPay) as MinPay,COUNT(BasicPay) as BasicCount from EmployeePayroll where Gender='M' or Gender='F' Group by Gender";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            string gender = reader[0].ToString();        //Using array for gender because it stores both values male and female
+                            double TotalSum = reader.GetDouble(1);
+                            double AvgCount = reader.GetDouble(2);
+                            double MaxPay=reader.GetDouble(3);
+                            double MinPay = reader.GetDouble(4);
+                            int BasicCount=reader.GetInt32(5);
+
+                            Console.WriteLine("Displaying Data as {0}:\n", reader[0].ToString());
+
+                            Console.WriteLine("{0},{1},{2},{3},{4},{5}", reader[0].ToString(), reader.GetDouble(1), reader.GetDouble(2),
+                                reader.GetDouble(3), reader.GetDouble(4), reader.GetInt32(5));
+                           
+                        }
+                        Console.WriteLine("Executed Successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something Went Wrong..." + e.Message);
+            }
+        }
     }
 }
 

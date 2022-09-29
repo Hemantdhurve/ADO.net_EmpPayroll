@@ -15,8 +15,9 @@ namespace ADO.net_EmpPayrollService
                 "4) Adding Employee Method to the database\n " +
                 "5) Updating Salary of Employee\n " +
                 "6) Get the Updated Salary of Employee\n " +
-                "7) Get the Employee Start Date Range\n ");
-                
+                "7) Get the Employee Start Date Range\n " +
+                "8) Find the Sum,Average,Maximum,Minumim and number of Male and Female\n ");
+
             int option=Convert.ToInt32(Console.ReadLine());
 
             EmpModel model = new EmpModel();
@@ -74,6 +75,11 @@ namespace ADO.net_EmpPayrollService
                 case 7:
                     repo.GetEmpDetailsFromDateRange(model);
                     break;
+
+                case 8:
+                    repo.UseFunctionGroupbyGender();
+                    break;
+
 
                 default:
                     Console.WriteLine("Please Enter Proper Option");
